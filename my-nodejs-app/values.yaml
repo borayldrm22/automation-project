@@ -24,9 +24,12 @@ podSecurityContext: {}
 
 securityContext: {}
 
+containerPort: 8080
+
 service:
   type: LoadBalancer
   port: 80
+  targetPort: 8080
 
 ingress:
   enabled: false
@@ -44,12 +47,18 @@ resources: {}
 livenessProbe:
   httpGet:
     path: /
-    port: http
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  failureThreshold: 3
 
 readinessProbe:
   httpGet:
     path: /
-    port: http
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  failureThreshold: 3
 
 autoscaling:
   enabled: false
