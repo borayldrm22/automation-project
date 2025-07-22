@@ -1,5 +1,5 @@
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "${var.cluster_name}-eks-cluster-role"
+  name = "simple-eks-cluster-eks-cluster-role-unique"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -23,7 +23,7 @@ resource "aws_iam_role_policy_attachment" "service_policy" {
 }
 
 resource "aws_iam_role" "eks_node_role" {
-  name = "${var.cluster_name}-eks-node-role"
+  name = "simple-eks-cluster-eks-node-role-v2"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -72,8 +72,6 @@ resource "aws_eks_node_group" "this" {
   node_role_arn   = aws_iam_role.eks_node_role.arn
   subnet_ids      = var.subnet_ids
   instance_types  = [var.node_instance_type]
-  ami_type        = "AL2_x86_64"
-  capacity_type   = "ON_DEMAND"
 
   scaling_config {
     desired_size = var.desired_capacity
