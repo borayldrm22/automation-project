@@ -15,4 +15,7 @@ data:
     message: |
       *{{.app.metadata.name}}* was successfully deployed!!!!!
 
+env:
+  - name: HOMEPAGE_TEXT
+    value: "Hello from ArgoCD + Slack 🎉"
 
