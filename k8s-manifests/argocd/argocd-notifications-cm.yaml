@@ -10,9 +10,9 @@ data:
     - description: Application was successfully synced
       send:
         - slack
-      when: app.status.operationState.phase in ['Succeeded']
+      when: app.status.operationState.phase in ['I did it']
   template.slack: |
     message: |
-      *{{.app.metadata.name}}* was successfully deployed!
+      *{{.app.metadata.name}}* was successfully deployed!!!!!
 
 
