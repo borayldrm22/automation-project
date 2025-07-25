@@ -1,0 +1,50 @@
+create repo :
+
+aws ecr create-repository --repository-name my-nodejs-app --region eu-west-1
+
+------------------------------
+login docker: 
+
+aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 509399616592.dkr.ecr.eu-west-1.amazonaws.com
+
+----------------------------
+
+create docker :  
+
+docker buildx build --platform linux/amd64 -t 509399616592.dkr.ecr.eu-west-1.amazonaws.com/my-nodejs-app:0.3 --push ./nodejs-express-mysql/
+
+------------------------------
+
+push docker :
+
+docker push 509399616592.dkr.ecr.eu-west-1.amazonaws.com/my-nodejs-app:0.3
+
+----------------------
+
+argocd external ip : 
+
+kubectl get svc -n argocd argocd-server
+
+----------------------
+
+
+argocd namespace : 
+
+kubectl create namespace argocd
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+
+kubectl get svc -n argocd argocd-server
+
+kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
+
+-----------------------
+
+
+argocd app create : 
+
+kubectl apply -f k8s-manifests/argocd/my-nodejs-app.yaml
+
+------------------------

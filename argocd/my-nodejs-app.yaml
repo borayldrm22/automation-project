@@ -16,7 +16,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: dev
 
   syncPolicy:
     automated:
@@ -24,3 +24,7 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+metadata:
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: "#all-slack-notification-project"
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: "#all-slack-notification-project"
