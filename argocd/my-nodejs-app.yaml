@@ -6,6 +6,8 @@ metadata:
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: "true"
     notifications.argoproj.io/subscribe.on-sync-failed.slack: "true"
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: slack
+
 
 spec:
   project: default
