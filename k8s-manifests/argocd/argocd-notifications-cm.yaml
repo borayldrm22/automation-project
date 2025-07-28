@@ -5,12 +5,16 @@ metadata:
   namespace: argocd
 data:
   service.slack: |
-    webhook: $argocd-notifications-secret:slack-webhook
-  trigger.on-deployed: |
-    - description: Application was successfully synced
+    webhook: $slack-webhook-secret:url
+  trigger.on-sync-succeeded: |
+    - description: Application sync succeeded
+      when: app.status.operationState.phase == 'Succeeded'
       send:
         - slack
-      when: app.status.operationState.phase in ['Succeeded']
-  template.slack: |
-    message: |
-      *{{.app.metadata.name}}* was successfully deployed!!!
+  template.app-sync-succeeded: |
+    slack:
+      attachments:
+        - title: Application {{.app.metadata.name}} sync succeeded
+          color: good
+          text: |
+            Application {{.app.metadata.name}} sync succeeded at {{.app.status.operationState.finishedAt}}.

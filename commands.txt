@@ -21,6 +21,12 @@ docker push 509399616592.dkr.ecr.eu-west-1.amazonaws.com/my-nodejs-app:0.3
 
 ----------------------
 
+update host:
+
+aws eks update-kubeconfig --region eu-west-1 --name simple-eks-cluster
+
+-------------------------------
+
 argocd external ip : 
 
 kubectl get svc -n argocd argocd-server
@@ -48,3 +54,7 @@ argocd app create :
 kubectl apply -f k8s-manifests/argocd/my-nodejs-app.yaml
 
 ------------------------
+
+Test slack channel :
+
+curl -X POST -H 'Content-type: application/json' --data '{"text":"Test from curl"}' https://hooks.slack.com/services/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
