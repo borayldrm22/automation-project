@@ -1,1 +1,2 @@
 .terraform/
+notify/argocd-notifications-secret.yaml
